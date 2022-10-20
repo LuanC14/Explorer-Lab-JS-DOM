@@ -1,12 +1,8 @@
 import "./css/index.css"
 import IMask from "imask"
 
-const ccBgColor01 = document.querySelector(
-  ".cc-bg  svg > g g:nth-child(1) path"
-)
-const ccBgColor02 = document.querySelector(
-  ".cc-bg  svg > g g:nth-child(2) path"
-)
+const ccBgColor01 = document.querySelector(".cc-bg  svg > g g:nth-child(1) path")
+const ccBgColor02 = document.querySelector(".cc-bg  svg > g g:nth-child(2) path")
 const ccLogo = document.querySelector(".cc-logo span:nth-child(2) img")
 
 function setCardType(type) {
@@ -21,6 +17,8 @@ function setCardType(type) {
   ccLogo.setAttribute("src", `cc-${type}.svg`)
 }
 
+
+
 const securityCode = document.querySelector("#security-code")
 
 const securityCodePattern = {
@@ -28,6 +26,8 @@ const securityCodePattern = {
 }
 
 const securityCodeMasked = IMask(securityCode, securityCodePattern)
+
+
 
 const expirationDate = document.querySelector("#expiration-date")
 
@@ -48,6 +48,8 @@ const expirationDatePattern = {
 }
 
 const expirationDateMasked = IMask(expirationDate, expirationDatePattern)
+
+
 
 const cardNumber = document.querySelector("#card-number")
 
@@ -86,6 +88,8 @@ const cardNumberPattern = {
 }
 const cardNumberMasked = IMask(cardNumber, cardNumberPattern)
 
+
+
 const addButton = document.querySelector("#add-card")
 const form = document.querySelector("form")
 
@@ -96,6 +100,9 @@ addButton.addEventListener("click", () => {
 form.addEventListener("submit", (event) => {
   event.preventDefault()
 })
+
+
+
 
 const nameCardInput = document.querySelector("#card-holder")
 
@@ -111,17 +118,15 @@ securityCodeMasked.on("accept", () => {
     securityCodeMasked.value.length === 0 ? "123" : securityCodeMasked.value
 })
 
-// A maneira anterior também é aplicável nessa, fiz desse jeito somente para dar exemplos possiveis de se fazer essa função
+
+
 cardNumberMasked.on("accept", () => {
   const cardType = cardNumberMasked.masked.currentMask.cardtype
-  setCardType(cardType)
-  updateCardNumber(cardNumberMasked)
-})
-
-const updateCardNumber = function (number) {
   const ccNumber = document.querySelector(".cc-number")
-  ccNumber.innerText = number.value.length === 0 ? "1234 5678 9012 3456" : number.value
-}
+  
+  ccNumber.innerText = cardNumberMasked.value.length === 0 ? "1234 5678 9012 3456" : cardNumberMasked.value
+  setCardType(cardType)
+})
 
 
 
